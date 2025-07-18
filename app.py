@@ -35,7 +35,7 @@ def parse_roblox_date(date_str):
 
 @app.route("/")
 def home():
-    return render_template("dashboard.html", user=session.get("user"))
+    return render_template("index.html", user=session.get("user"))
 
 
 @app.route("/api/player")
