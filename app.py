@@ -37,6 +37,13 @@ def parse_roblox_date(date_str):
 def home():
     return jsonify({"message": "Flask backend is running"})
 
+@app.route("/api/user")
+def get_user():
+    user = session.get("user")
+    if user:
+        return jsonify({"logged_in": True, "username": user["username"]})
+    return jsonify({"logged_in": False})
+
 
 @app.route("/api/player")
 def api_player():

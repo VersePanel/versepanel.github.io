@@ -78,14 +78,35 @@
   <h1>Welcome to Snowy's Sanctuary</h1>
   <p>-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
 
-  <div class="user">
-    {% if user %}
-      <p>Hope you're having a great day, {{user.username}}!</p>
-      <a href="/logout" class="btn btn-danger mb-3">Logout</a>
-    {% else %}
-      <a href="/login" class="btn btn-primary mb-3">Login with Discord</a>
-    {% endif %}
-  </div>
+  <div class="user" id="user-box">
+  <!-- Content will be loaded via JavaScript -->
+</div>
+
+<script>
+  // Replace this with your actual Render backend URL
+  const BACKEND_URL = "https://your-backend.onrender.com";
+
+  fetch(`${BACKEND_URL}/api/user`, {
+    credentials: "include" // Important for session cookies!
+  })
+    .then(res => res.json())
+    .then(data => {
+      const userBox = document.getElementById("user-box");
+      if (data.logged_in) {
+        userBox.innerHTML = `
+          <p>Hope you're having a great day, ${data.username}!</p>
+          <a href="${BACKEND_URL}/logout" class="btn btn-danger mb-3">Logout</a>
+        `;
+      } else {
+        userBox.innerHTML = `
+          <a href="${BACKEND_URL}/login" class="btn btn-primary mb-3">Login with Discord</a>
+        `;
+      }
+    })
+    .catch(err => {
+      console.error("Failed to fetch user info:", err);
+    });
+</script>
 
   <p>-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
   <div class="info">
