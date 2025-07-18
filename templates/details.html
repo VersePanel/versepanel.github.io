@@ -214,7 +214,7 @@
     document.getElementById('user-tag').textContent = `@${username.toLowerCase()}`;
 
     // Fetch user data from your API endpoint (adjust this URL!)
-    fetch(`/api/player?username=${encodeURIComponent(username)}`)
+    fetch(`https://versepanel.onrender.com/api/player?username=${encodeURIComponent(username)}`)
       .then(res => res.json())
       .then(data => {
         if(data.error) {
